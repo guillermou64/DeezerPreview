@@ -38,8 +38,16 @@ function start() {
             return response.json()
         })
         .then((json) => {
+
+           
             const data = json.data;
-            console.log(data);
+            if (data.length > 0){
+
+            console.log(data.length);
+            
+            
+            
+            
             for (let i = 0; i < data.length; i++) {
                 var { title_short: name, artist, album, preview: file } = data[i]
                 songs.push( new Song(name,artist.name,album.cover_big,file) );
@@ -47,6 +55,14 @@ function start() {
             let player = document.querySelector("#player");
             player.classList.remove("placeholder");
             ap.loadSong();
-        })
+        }
+    
+            else { 
+            alert("Ese artista no existe en nuestra base de datos")
+            storage.clear()
+            window.location = "./index.html";
+
+        }
+            })
 
 }
